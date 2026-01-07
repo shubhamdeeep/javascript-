@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Debounce Search Example</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    input {
+      width: 300px;
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Debounce Search</h2>
+  <input type="text" id="search" placeholder="Type to search..." />
+
+  <script>
+    // 🔹 Debounce function
+    function debounce(func, delay) {
+      let timer;
+
+      return function (...args) {
+        clearTimeout(timer);
+
+        timer = setTimeout(() => {
+          func.apply(this, args); // preserve `this`
+        }, delay);
+      };
+    }
+
+//     <!-- this = input element
+
+// e.target.value safely milta hai
+
+// future me agar this.value use karo → break nahi hoga
+//  -->
+    // 🔹 Search function
+    function search(e) {
+      console.log("Searching for:", e.target.value);
+    }
+
+    // 🔹 Attach debounce to input
+    const input = document.getElementById("search");
+    const debouncedSearch = debounce(search, 500);
+
+    input.addEventListener("input", debouncedSearch);
+  </script>
+
+</body>
+</html>
+

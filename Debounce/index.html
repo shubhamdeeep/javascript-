@@ -20,10 +20,15 @@
 <body>
 
   <h2>Debounce Search</h2>
-  <input type="text" id="search" placeholder="Type to search..." />
+
+  <input
+    type="text"
+    id="search"
+    placeholder="Type to search..."
+    oninput="debouncedSearch(event)"
+  />
 
   <script>
-    // 🔹 Debounce function
     function debounce(func, delay) {
       let timer;
 
@@ -31,29 +36,19 @@
         clearTimeout(timer);
 
         timer = setTimeout(() => {
-          func.apply(this, args); // preserve `this`
+          func.apply(this, args);
         }, delay);
       };
     }
 
-//     <!-- this = input element
-
-// e.target.value safely milta hai
-
-// future me agar this.value use karo → break nahi hoga
-//  -->
-    // 🔹 Search function
     function search(e) {
       console.log("Searching for:", e.target.value);
     }
 
-    // 🔹 Attach debounce to input
-    const input = document.getElementById("search");
     const debouncedSearch = debounce(search, 500);
-
-    input.addEventListener("input", debouncedSearch);
   </script>
 
 </body>
+
 </html>
 
